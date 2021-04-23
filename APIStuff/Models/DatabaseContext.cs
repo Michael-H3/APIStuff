@@ -22,6 +22,8 @@ namespace APIStuff.Models
         //public DbSet<className> yourTableName { get; set; }
         public DbSet<Samurai> Samurai { get; set; }
 
+        public DbSet<ActionHeroes> ActionHeroes { get; set; }
+
 
     }
 }
