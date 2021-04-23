@@ -27,6 +27,22 @@ namespace APIStuff.Controllers
             return await _context.ActionHeroes.ToListAsync();
         }
 
+        [HttpGet("best")]
+
+        public async Task<ActionResult<IEnumerable<ActionHeroes>>> GetActionHeroesBest()
+        {
+            return await _context.ActionHeroes.Where((a) => a.epicMovies > 5).ToListAsync();
+        }
+
+        [HttpGet("oldschool")]
+
+        public async Task<ActionResult<IEnumerable<ActionHeroes>>> GetActionHeroesOldSchool()
+        {
+            DateTime newdate = new DateTime(2015, 12, 31, 5, 10, 20, DateTimeKind.Utc); //år, måned, dag, time, min, sek, format
+
+            return await _context.ActionHeroes.Where((a) => a.Date < newdate).ToListAsync();
+        }
+
         // GET: api/ActionHeroes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ActionHeroes>> GetActionHeroes(int id)
