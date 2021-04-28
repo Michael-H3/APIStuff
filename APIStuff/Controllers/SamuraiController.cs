@@ -27,6 +27,60 @@ namespace APIStuff.Controllers
             return await _context.Samurai.ToListAsync();
         }
 
+        //api/Samurai/join1m
+        [HttpGet("join1m")]
+        public async Task<ActionResult<Samurai>> GetSamurai22()
+        {
+            // var temp = await _context.Samurai.Include(s => s.samuraiBattles).ToListAsync(); //trækker ud fra en liste i en tabel
+            //var temp2 = await _context.Samurai.Include(Battle => Battle.).ToListAsync();
+            //var temp = await _context.Samurai.Select(s => s).ToListAsync();
+            var temp = await _context.Samurai.Include(s => s.SamuraisInBattle).ToListAsync();
+
+            return Ok(temp);
+        }
+
+        //api/Samurai/join1m
+        [HttpGet("joinmm")]
+        public async Task<ActionResult<IEnumerable<Samurai>>> GetSamurai23()
+        {
+            var temp = await _context.Samurai.Include(s => s.SamuraisInBattle)
+                .ThenInclude(sb => sb.Battle)
+
+                .Where(blodig => blodig.name == "Gaara")
+                .Select(x => new
+                {
+                    x.name,
+                    test = x.SamuraisInBattle.Select(allsam => allsam.Battle.name)
+
+                })
+                .ToListAsync();
+
+            //orderby, where eller group er efter dette join
+            //eksempelvis
+            //.where(base => base.battleproperty == noget)
+
+                //m-m: array.include(s=>s.list).thenInclude(?)
+                //table-table-table: table1.include(table2).include(table3)
+            //var temp2 = await _context.Samurai.Include(Battle => Battle.).ToListAsync();
+            return Ok(temp);
+        }
+
+        [HttpGet("JoinAnonymous")]
+
+        public async Task<ActionResult<IEnumerable<Samurai>>> GetSamurai233()
+        {
+            var temp = await _context.Samurai.Include(s => s.SamuraisInBattle as List<SamuraisInBattle>)
+                .ThenInclude(sb => sb.Battle).ToListAsync();
+            //orderby, where eller group er efter dette join
+            //eksempelvis
+            //.where(base => base.battleproperty == noget)
+
+            //m-m: array.include(s=>s.list).thenInclude(?)
+            //table-table-table: table1.include(table2).include(table3)
+            //var temp2 = await _context.Samurai.Include(Battle => Battle.).ToListAsync();
+            return Ok(temp);
+        }
+
         // GET: api/Samurai/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Samurai>> GetSamurai(int id)

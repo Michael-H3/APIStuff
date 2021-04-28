@@ -21,8 +21,20 @@ namespace APIStuff.Models
 
         //public DbSet<className> yourTableName { get; set; }
         public DbSet<Samurai> Samurai { get; set; }
+        public DbSet<Battle> Battle { get; set; }
+
+        public List<SamuraisInBattle> SamuraisInBattle { get; set; }
 
         public DbSet<ActionHeroes> ActionHeroes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SamuraisInBattle>().HasKey(relation => new
+            {
+                relation.samuraiID,
+                relation.battleID
+            });
+        }
 
 
     }

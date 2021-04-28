@@ -4,14 +4,16 @@ using APIStuff.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace APIStuff.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210427063350_samuraiBattleCreated")]
+    partial class samuraiBattleCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,7 +99,7 @@ namespace APIStuff.Migrations
             modelBuilder.Entity("APIStuff.Models.SamuraisInBattle", b =>
                 {
                     b.HasOne("APIStuff.Models.Battle", "battle")
-                        .WithMany("SamuraisInBattle")
+                        .WithMany()
                         .HasForeignKey("battleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -43,6 +43,13 @@ namespace APIStuff.Controllers
             return await _context.ActionHeroes.Where((a) => a.Date < newdate).ToListAsync();
         }
 
+        [HttpGet("sw/{mov}")]
+
+        public async Task<ActionResult<IEnumerable<ActionHeroes>>> GetActionHeroesMovies(int mov)
+        {
+            return await _context.ActionHeroes.Where((m) => m.epicMovies >= mov).ToListAsync(); //viser en liste med filmstjerner som har været med i det antal film som brugeren specificerer
+        }
+
         // GET: api/ActionHeroes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ActionHeroes>> GetActionHeroes(int id)
